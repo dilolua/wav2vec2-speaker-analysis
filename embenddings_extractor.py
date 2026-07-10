@@ -134,7 +134,7 @@ SENTENCE = "SA1"
 #options: "SA1" or "SA2"
 METADATA_FILE = f"timit_sa1_sa2/{SENTENCE}/metadata_{SENTENCE.lower()}.csv"
 DATA_DIR = f"timit_sa1_sa2/{SENTENCE}"
-OUTPUT_DIR = "embeddings"
+OUTPUT_DIR ="embeddings"
 
 #layers used for probing
 LAYERS_TO_USE = {
