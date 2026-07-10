@@ -103,7 +103,7 @@ def run_probe(X, y, train_idx, test_idx, task):
 
 #main
 
-metadata = load_metadata(METADATA_FILE)
+metadata= load_metadata(METADATA_FILE)
 y = get_labels(metadata, TASK)
 
 train_idx, test_idx = get_train_test_indices(metadata)
