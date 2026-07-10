@@ -97,6 +97,7 @@ Metrics:
 - Accuracy
 - Macro F1-score
 - Confusion Matrix
+- Number of mistakes
 - Mean confidence
 - Mean probability assigned to the male class
 
@@ -113,6 +114,7 @@ Metrics:
 - Accuracy
 - Macro F1-score
 - Confusion Matrix
+- Number of mistakes
 
 ---
 
