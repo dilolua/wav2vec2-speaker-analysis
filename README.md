@@ -141,7 +141,7 @@ Unlike gender, the **middle layer** consistently achieved the highest accuracy f
 ```
 wav2vec2-speaker-analysis/
 
-├── extract_embeddings.py
+├── embenddings_extractor.py
 ├── probe.py
 ├── plot_results.py
 ├── README.md
@@ -186,7 +186,7 @@ Download the TIMIT dataset and organize the files according to the paths specifi
 Run:
 
 ```bash
-python extract_embeddings.py
+python embenddings_extractor.py
 ```
 
 This script extracts mean-pooled embeddings from the selected wav2vec2 layers.
