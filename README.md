@@ -134,15 +134,6 @@ Unlike gender, the **middle layer** consistently achieved the highest accuracy f
 
 ---
 
-## Overall
-
-The experiments suggest that different layers of wav2vec2 capture different types of speaker information.
-
-- **Gender** is represented strongly throughout the network and is most prominent in the early layers.
-- **Dialect** information is weaker but still recoverable, with the strongest performance observed in the intermediate layers.
-
----
-
 # Repository Structure
 
 ```
