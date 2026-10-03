@@ -66,7 +66,7 @@ PER_CLUSTER_OUTPUT_FILE = OUTPUT_DIR / f"{TASK}_cluster_details_{MODEL_NAME.repl
 
 
 # ------------------------------------------------------------------------
-# STEP 1 -- Load embeddings + metadata (same pattern as probe_mixer6.py)
+# Load embeddings + metadata (same pattern as probe_mixer6.py)
 # ------------------------------------------------------------------------
 
 def load_layer_embeddings(layer_name: str) -> np.ndarray:
@@ -90,7 +90,7 @@ def drop_missing_labels(metadata: pd.DataFrame, task: str) -> np.ndarray:
 
 
 # ------------------------------------------------------------------------
-# STEP 1b -- Optional: aggregate to one embedding per speaker
+# aggregate to one embedding per speaker
 # ------------------------------------------------------------------------
 
 def aggregate_by_speaker(embeddings: np.ndarray, metadata: pd.DataFrame,
@@ -113,7 +113,7 @@ def aggregate_by_speaker(embeddings: np.ndarray, metadata: pd.DataFrame,
 
 
 # ------------------------------------------------------------------------
-# STEP 1c -- Cluster purity (dominant class proportion per cluster)
+#  Cluster purity (dominant class proportion per cluster)
 # ------------------------------------------------------------------------
 
 def compute_cluster_purity(true_labels: pd.Series, cluster_assignments: np.ndarray) -> dict:
@@ -157,7 +157,7 @@ def compute_cluster_purity(true_labels: pd.Series, cluster_assignments: np.ndarr
 
 
 # ------------------------------------------------------------------------
-# STEP 2 -- Run K-means and evaluate against true labels
+# Run K-means and evaluate against true labels
 # ------------------------------------------------------------------------
 
 def run_clustering(embeddings: np.ndarray, true_labels: pd.Series,
