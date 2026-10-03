@@ -65,9 +65,7 @@ PER_CLUSTER_OUTPUT_FILE = OUTPUT_DIR / f"{TASK}_cluster_details_{MODEL_NAME.repl
 #summary file above.
 
 
-# ------------------------------------------------------------------------
 # Load embeddings + metadata (same pattern as probe_mixer6.py)
-# ------------------------------------------------------------------------
 
 def load_layer_embeddings(layer_name: str) -> np.ndarray:
     safe_model_name = MODEL_NAME.replace("/", "_")
@@ -89,9 +87,7 @@ def drop_missing_labels(metadata: pd.DataFrame, task: str) -> np.ndarray:
     return valid_mask.to_numpy()
 
 
-# ------------------------------------------------------------------------
 # aggregate to one embedding per speaker
-# ------------------------------------------------------------------------
 
 def aggregate_by_speaker(embeddings: np.ndarray, metadata: pd.DataFrame,
                           task: str) -> tuple[np.ndarray, pd.Series]:
@@ -112,9 +108,7 @@ def aggregate_by_speaker(embeddings: np.ndarray, metadata: pd.DataFrame,
     return speaker_embeddings, speaker_labels.reset_index(drop=True)
 
 
-# ------------------------------------------------------------------------
 #  Cluster purity (dominant class proportion per cluster)
-# ------------------------------------------------------------------------
 
 def compute_cluster_purity(true_labels: pd.Series, cluster_assignments: np.ndarray) -> dict:
     """For each cluster, find the dominant (most common) true label and
@@ -156,9 +150,7 @@ def compute_cluster_purity(true_labels: pd.Series, cluster_assignments: np.ndarr
     }
 
 
-# ------------------------------------------------------------------------
 # Run K-means and evaluate against true labels
-# ------------------------------------------------------------------------
 
 def run_clustering(embeddings: np.ndarray, true_labels: pd.Series,
                     n_clusters: int, random_seed: int,
