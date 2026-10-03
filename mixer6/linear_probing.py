@@ -10,14 +10,7 @@ TASK = "gender"
 #options: "gender" or "dialect_region"
 
 MODEL_CHOICE = "wav2vec2"
-#options: "wav2vec2", "hubert", or "wavlm" -- change just this ONE line to
-#switch models. This replaces the old setup (separately hardcoded
-#MODEL_NAME and METADATA_FILE/EMBEDDING_FILES paths), which could get out
-#of sync with each other -- that mismatch caused a real bug earlier, where
-#METADATA_FILE pointed at the HuBERT folder but EMBEDDING_FILES still
-#pointed at wav2vec2's. Using one shared MODEL_CONFIGS dictionary (same
-#pattern as extract_embeddings_mixer6_all.py, cluster_mixer6_update.py,
-#and abx_mixer6.py) makes that mismatch impossible by construction.
+#options: "wav2vec2", "hubert", or "wavlm" 
 
 MODEL_CONFIGS = {
     "wav2vec2": {"name": "facebook/wav2vec2-base", "dir": "embeddings_mixer6"},
@@ -38,13 +31,9 @@ EMBEDDING_FILES = {
     "middle": f"{EMBEDDINGS_DIR}/embeddings_{MODEL_NAME.replace('/', '_')}_middle.npy",
     "final": f"{EMBEDDINGS_DIR}/embeddings_{MODEL_NAME.replace('/', '_')}_final.npy",
 }
-#Both METADATA_FILE and EMBEDDING_FILES are now derived from the SAME
-#EMBEDDINGS_DIR, which itself comes from MODEL_CHOICE -- so they can never
-#point at two different models at once.
 
 TEST_SIZE = 0.2
-#CHANGED from TIMIT: fraction of SPEAKERS (not rows) held out for test --
-#see note on speaker-disjoint splitting below
+#CHANGED from TIMIT: fraction of SPEAKERS (not rows) held out for test
 
 RANDOM_SEED = 42
 
@@ -90,7 +79,7 @@ def drop_missing_labels(metadata, task):
 
 def get_train_test_indices(metadata, test_size, random_seed):
     """CHANGED from TIMIT: Mixer 6 has no official TRAIN/TEST split column
-    (unlike TIMIT). More importantly, Mixer 6 has ~650 sentences per
+    (unlike TIMIT). More importantly, Mixer 6 has arond650 sentences per
     speaker, vs. TIMIT's ~1 sentence per file -- so a plain random
     row-level split would put the same speaker's sentences in both train
     and test, letting the classifier learn speaker-specific quirks
@@ -145,7 +134,7 @@ def run_probe(X, y, train_idx, test_idx, task):
     mistakes = y_pred != y_test
     n_mistakes = mistakes.sum()
 
-    #NEW: majority-class baseline -- what accuracy/macro F1 would you get
+    #majority-class baseline -- what accuracy/macro F1 would you get
     #by always predicting the single most common label in TRAIN? This
     #makes the accuracy-vs-macro-F1 gap concrete: a probe that barely
     #beats this baseline on accuracy, while scoring far worse on macro F1,
@@ -216,7 +205,7 @@ for layer, filename in EMBEDDING_FILES.items():
     print("Macro F1:", results["macro_f1"])
     print("Number of mistakes:", results["mistakes"])
 
-    #NEW: print baseline right next to the real result, so the gap is
+    #print baseline right next to the real result, so the gap is
     #immediately visible
     print(f"\nMajority-class baseline (always predict '{results['majority_label']}'):")
     print("  Baseline accuracy:", results["baseline_accuracy"])
