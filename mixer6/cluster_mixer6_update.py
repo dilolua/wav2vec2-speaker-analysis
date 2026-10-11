@@ -1,8 +1,7 @@
 """
 cluster_mixer6_update.py
  
-K-means clustering for GENDER or DIALECT REGION (categorical variables),
-following Van Niekerk et al. (2021):
+K-means clustering following Van Niekerk et al. (2021):
   - K-means never sees the labels. It groups the 768-dim embeddings by
     distance only; labels are used afterwards to check whether the groups
     match the real categories.
