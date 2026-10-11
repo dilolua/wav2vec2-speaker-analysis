@@ -44,9 +44,7 @@ TEST_SIZE = 0.2
 RANDOM_SEED = 42
 
 N_SENTENCES = 20
-#probe N_SENTENCES eligible sentences (most widely spoken first, ties broken
-#randomly with RANDOM_SEED; None = all
-#eligible ones; slower, since each needs 3 fits).
+#probe N_SENTENCES eligible sentences 
 
 MIN_SPEAKERS_PER_CLASS_TRAIN = 5
 MIN_SPEAKERS_PER_CLASS_TEST = 2
