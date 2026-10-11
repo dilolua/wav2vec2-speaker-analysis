@@ -1,3 +1,28 @@
+"""
+cluster_mixer6_update.py
+ 
+K-means clustering for GENDER or DIALECT REGION (categorical variables),
+following Van Niekerk et al. (2021):
+  - K-means never sees the labels. It groups the 768-dim embeddings by
+    distance only; labels are used afterwards to check whether the groups
+    match the real categories.
+  - k = number of true classes (2 for gender, 5 for dialect_region).
+  - Metrics: ARI, AMI, homogeneity, completeness, purity (per cluster:
+    dominant-class count / cluster size; overall = size-weighted average).
+ 
+Why no train/test split: K-means never sees the labels while fitting, so it
+cannot overfit to them the way a trained classifier can.
+ 
+Why cluster speakers, not sentences: sentence-level embeddings carry a lot
+of content and recording noise, and the ARI is about 0. Averaging each
+speaker's sentences into one embedding (AGGREGATE_BY_SPEAKER) removes this,
+and gender clustering then reaches ARI 0.75-0.94 at the middle layer.
+STANDARDIZE scales each dimension to mean 0 and variance 1 first.
+ 
+Input is the mean-pooled embeddings; output is one summary CSV (one row per
+layer) and one details CSV (one row per layer and cluster) in
+cluster_results_mixer6/.
+"""
 from pathlib import Path
 
 import numpy as np
