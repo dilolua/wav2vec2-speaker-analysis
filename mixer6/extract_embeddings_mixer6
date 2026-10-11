@@ -1,3 +1,29 @@
+"""
+extract_embeddings_mixer6_all.py
+ 
+Extracts mean-pooled embeddings from a self-supervised speech model for every
+sentence clip in the Mixer 6 metadata. One script for all three models:
+  - Set MODEL_CHOICE to "wav2vec2", "hubert" or "wavlm". That is the only
+    line that needs to change; each model writes to its own folder.
+  - Each clip is loaded, resampled to 16 kHz and passed through the model.
+    The hidden states of layers 1 ("first"), 6 ("middle") and 12 ("final")
+    are averaged over time, giving one 768-dimensional vector per clip per
+    layer.
+  - Clips that are missing, too short (< 0.05 s) or that raise an error are
+    logged in failed_clips.csv and skipped, so one bad file does not stop
+    the run.
+
+ 
+Test first: N_TEST_SAMPLES = 50 runs on 50 random clips. Set it to None for
+the full run (about 140,000 clips). Uses AutoFeatureExtractor (not
+AutoProcessor) because the HuBERT and WavLM base checkpoints have no text
+tokenizer. Runs on the Apple GPU ("mps") if available, otherwise the CPU.
+ 
+Output (per model folder): embeddings_<model>_<layer>.npy for each layer,
+metadata_processed.csv, failed_clips.csv. Partial checkpoints are saved every
+500 clips (there is no resume: a stopped run starts again from the beginning).
+"""
+
 import torch
 import torchaudio
 import numpy as np
