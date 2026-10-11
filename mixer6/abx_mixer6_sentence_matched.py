@@ -59,7 +59,7 @@ OUTPUT_DIR = Path("abx_results_mixer6")
 OUTPUT_FILE = OUTPUT_DIR / f"gender_abx_sentence_matched_{MODEL_NAME.replace('/', '_')}_{DISTANCE_METRIC}.csv"
 
 
-# STEP 1 -- Load
+#Load
 
 def load_layer_embeddings(layer_name: str) -> np.ndarray:
     safe_model_name = MODEL_NAME.replace("/", "_")
@@ -74,7 +74,7 @@ def compute_distance(a, b, metric):
     raise ValueError(f"Unknown distance metric: {metric}")
 
 
-# STEP 2 -- Build the (sentence, speaker) table
+# Build the (sentence, speaker) table
 
 def build_sentence_speaker_table(embeddings, metadata):
     """Returns (points, table). points[i] = mean embedding of one speaker
@@ -104,7 +104,7 @@ def eligible_sentences(table):
     return out
 
 
-# STEP 3 -- Sample trials and score
+#Sample trials and score
 
 def run_abx(points, table, n_triplets, metric, seed):
     rng = np.random.default_rng(seed)
